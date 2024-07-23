@@ -4,6 +4,28 @@ sources:
   - name: gz_raw_data
     tables:
       - name: raw_gz_product
-        description: products list
+        description: products of greenweez
+        columns:
+          - name: products_id
+            description: product primary key
+            tests:
+              - unique
+              - not_null
+            
       - name : raw_gz_sales
+        description: sales of greenweez / we have one row per products_id found in each orders_id.
+        columns:
+          - name: "orders_id || pdt_id"
+            description: sales primary key
+            tests:
+              - unique
+              - not_null
+                  
       - name : raw_gz_ship
+        description: shipping of greenweez
+        columns:
+          - name: orders_id
+            description: ship primary key
+            tests:
+              - unique
+              - not_null
