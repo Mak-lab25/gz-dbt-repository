@@ -1,3 +1,4 @@
+---{{ config(materialized="table") }}
 SELECT
 date_date,
 SUM(orders_id) AS nb_transactions,
