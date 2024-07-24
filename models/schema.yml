@@ -1,11 +1,66 @@
 version: 2
+
 sources:
-  - name: raw
-    schema: dbt_course
+  - name: gz_raw_data
     tables:
-      - name: product
-        identifier : raw_gz_product
-      - name : sales
-        identifier : raw_gz_sales
-      - name: ship
-        identifier: raw_gz_ship
+      - name: raw_gz_product
+        description: products of greenweez
+        columns:
+          - name: products_id
+            description: product primary key
+            tests:
+              - unique
+              - not_null
+            
+      - name : raw_gz_sales
+        description: sales of greenweez / we have one row per products_id found in each orders_id.
+        columns:
+          - name: "orders_id || pdt_id"
+            description: sales primary key
+            tests:
+              - unique
+              - not_null
+                  
+      - name : raw_gz_ship
+        description: shipping of greenweez
+        columns:
+          - name: orders_id
+            description: ship primary key
+            tests:
+              - unique
+              - not_null
+
+            
+models:    
+      - name : finance_days
+        columns:
+          - name: date_date
+            description: finance primary key
+            tests:
+              - unique
+              - not_null
+
+      - name : int_sales_margin
+        columns:
+          - name:  "date_date || orders_id || products_id"
+            description: int_sales_primary key
+            tests:
+              - unique
+              - not_null
+
+      - name : int_orders_margin
+        columns:
+          - name: orders_id
+            description: int_orders_primary key
+            tests:
+              - unique
+              - not_null
+
+      - name : int_orders_operational
+        columns:
+          - name: orders_id
+            description: int_orders_primary key
+            tests:
+              - unique
+              - not_null
+          
